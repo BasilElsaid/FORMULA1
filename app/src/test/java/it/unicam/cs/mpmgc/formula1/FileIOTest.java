@@ -39,15 +39,15 @@ class FileIOTest {
     @BeforeEach
     public void SetUp(){
         fileIO = new FileIO();
-        List<String> trackLines = fileIO.readAndParseFile("trackFormat.txt");
-        List<String> playerLines = fileIO.readAndParseFile("playersFormat.txt");
+        List<String> trackLines = fileIO.readFile("trackFormat.txt");
+        List<String> playerLines = fileIO.readFile("playersFormat.txt");
 
         fileIO.parseTrack(trackLines);
         fileIO.parsePlayers(playerLines);
     }
 
     @Test
-    public void TestReadAndParseFile(){
+    public void TestReadFile(){
         List<String> trackLines = fileIO.getTrackLines();
         assertEquals(18, trackLines.size());
         assertEquals("####################", trackLines.get(0));

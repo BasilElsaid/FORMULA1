@@ -60,8 +60,8 @@ public class GameSetup{
     }
 
     public void loadTrackAndPlayers(){
-        List<String> trackLines = fileIO.readAndParseFile("trackFormat.txt");
-        List<String> playerLines = fileIO.readAndParseFile("playersFormat.txt");
+        List<String> trackLines = fileIO.readFile("trackFormat.txt");
+        List<String> playerLines = fileIO.readFile("playersFormat.txt");
 
         fileIO.parseTrack(trackLines);
         fileIO.parsePlayers(playerLines);
@@ -82,7 +82,13 @@ public class GameSetup{
     public void initializePlayers() {
         checkInitializedTrack();
         List<String[]> playerData = fileIO.loadPlayers();
+        int maxPlayers = fileIO.getMaxPlayers();
+
         for (String[] pair : playerData){
+            if (players.size() >= maxPlayers){
+                System.err.println("Max players reached. Skipping additional players");
+                break;
+            }
             createAndAddPlayers(pair);
         }
     }

@@ -31,19 +31,21 @@ import java.util.List;
 
 public class FileIO {
 
-    List<String> trackLines;
-    List<String> playerLines;
+    private List<String> trackLines;
+    private List<String> playerLines;
+    private int maxPlayers;
 
     public FileIO(){
         trackLines = new ArrayList<>();
         playerLines = new ArrayList<>();
+        maxPlayers = 0;
     }
 
 
     /**
      * reads a file, saves its data in fileLines.
      */
-    public List<String> readAndParseFile(String file){
+    public List<String> readFile(String file){
         List<String> fileLines;
         try {
             Path filePath = Path.of(getClass().getClassLoader().getResource(file).toURI());
@@ -59,6 +61,10 @@ public class FileIO {
      * @param fileLines the data from track txt. file
      */
     public void parseTrack(List<String> fileLines){
+        if (fileLines.isEmpty()){
+            throw new IllegalStateException("Track file is empty.");
+        }
+
         trackLines.clear();
         for (String line : fileLines){
             trackLines.add(line);
@@ -70,6 +76,17 @@ public class FileIO {
      * @param fileLines the data from players txt. file
      */
     public void parsePlayers(List<String> fileLines){
+        if (fileLines.isEmpty()){
+            throw new IllegalStateException("Players file is empty.");
+        }
+
+        try {
+            maxPlayers = Integer.parseInt(fileLines.get(0).trim());
+            fileLines = fileLines.subList(1, fileLines.size()); // Skip the first line
+        } catch (NumberFormatException e){
+            throw new IllegalStateException("Invalid maximum players value in file.");
+        }
+
         playerLines.clear();
         for (String line : fileLines){
             playerLines.add(line);
@@ -124,4 +141,7 @@ public class FileIO {
         return playerLines;
     }
 
+    public int getMaxPlayers(){
+        return maxPlayers;
+    }
 }
