@@ -67,8 +67,8 @@ class FileIOTest {
     @Test
     public void TestLoadPlayers(){
         List<String> playerLines = fileIO.getPlayerLines();
-        assertEquals("Bot,bot1", playerLines.get(0));
-        assertEquals("Bot,bot2", playerLines.get(1));
+        assertEquals("EasyBot,bot1", playerLines.get(0));
+        assertEquals("HardBot,bot2", playerLines.get(1));
         assertEquals("Human,player1", playerLines.get(2));
     }
 

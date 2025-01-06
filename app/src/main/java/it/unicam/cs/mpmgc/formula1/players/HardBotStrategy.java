@@ -33,14 +33,14 @@ import java.util.Random;
  * This class handles creating a Bot strategy and applying the movement logic of the Bot.
  */
 
-public class BotMovementStrategy implements iMovementStrategy {
+public class HardBotStrategy implements iMovementStrategy {
 
     private Directions nextDirection;
     private int speed;
     private final Track track;
     private iCar botCar;
 
-    public BotMovementStrategy(Track track){
+    public HardBotStrategy(Track track){
         this.nextDirection = Directions.RIGHT;
         this.speed = 1;
         this.track = track;

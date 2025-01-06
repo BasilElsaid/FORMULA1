@@ -24,7 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import it.unicam.cs.mpmgc.formula1.players.BotMovementStrategy;
+import it.unicam.cs.mpmgc.formula1.players.HardBotStrategy;
 import it.unicam.cs.mpmgc.formula1.players.Car;
 import it.unicam.cs.mpmgc.formula1.players.Directions;
 import it.unicam.cs.mpmgc.formula1.players.iCar;
@@ -35,16 +35,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BotMovementStrategyTest {
+class HardBotStrategyTest {
 
     Track track;
-    BotMovementStrategy botStrategy;
+    HardBotStrategy botStrategy;
     iCar BotCar;
 
     @BeforeEach
     public void TrackSetUp(){
         track = new Track(5,6);
-        botStrategy = new BotMovementStrategy(track);
+        botStrategy = new HardBotStrategy(track);
         BotCar = new Car("Bot1", botStrategy);
     }
 

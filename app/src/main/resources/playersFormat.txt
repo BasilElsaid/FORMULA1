@@ -1,4 +1,4 @@
 3
-Bot,bot1
-Bot,bot2
+EasyBot,bot1
+HardBot,bot2
 Human,player1

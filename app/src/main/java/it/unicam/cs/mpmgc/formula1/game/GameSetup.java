@@ -24,12 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1.game;
 
+import it.unicam.cs.mpmgc.formula1.players.*;
 import it.unicam.cs.mpmgc.formula1.utils.FileIO;
 import it.unicam.cs.mpmgc.formula1.utils.Position;
-import it.unicam.cs.mpmgc.formula1.players.iCar;
-import it.unicam.cs.mpmgc.formula1.players.BotMovementStrategy;
-import it.unicam.cs.mpmgc.formula1.players.Car;
-import it.unicam.cs.mpmgc.formula1.players.HumanMovementStrategy;
 import it.unicam.cs.mpmgc.formula1.track.Track;
 import it.unicam.cs.mpmgc.formula1.track.TrackRenderer;
 
@@ -98,7 +95,8 @@ public class GameSetup{
         String playerType = playerData[0];
         String playerName = playerData[1];
         switch (playerType) {
-            case "Bot"  : player = new Car(playerName, new BotMovementStrategy(track));     break;
+            case "HardBot"  : player = new Car(playerName, new HardBotStrategy(track));     break;
+            case "EasyBot"  : player = new Car(playerName, new EasyBotStrategy(track));     break;
             case "Human": player = new Car(playerName, new HumanMovementStrategy(track));   break;
             default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
         }
