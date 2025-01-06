@@ -133,17 +133,17 @@ public class Controller {
 
     private void placeRacers(){
         Color color;
+        iMovementStrategy movementStrategy;
         for (Car car : cars){
-            if (car.getMovementStrategy() instanceof HumanMovementStrategy){
+            movementStrategy = car.getMovementStrategy();
+            if (movementStrategy instanceof HumanMovementStrategy){
                 color = Color.RED;
             }
+            else if (movementStrategy instanceof EasyBotStrategy){
+                color = Color.BLUE;
+            }
             else {
-                if (car.getName().equals("bot1")){
-                    color = Color.BLUE;
-                }
-                else {
-                    color = Color.GREEN;
-                }
+                color = Color.GREEN;
             }
             Rectangle player = new Rectangle(CELL_SIZE, CELL_SIZE, color);
             trackGrid.add(player, car.getCurrentPosition().getColumn(), car.getCurrentPosition().getRow());
