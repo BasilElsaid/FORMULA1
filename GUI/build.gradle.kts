@@ -15,7 +15,7 @@ dependencies {
     implementation("org.openjfx:javafx-base:$javaFXVersion")
     implementation("org.openjfx:javafx-controls:$javaFXVersion")
     implementation("org.openjfx:javafx-graphics:$javaFXVersion")
-    implementation("org.openjfx:javafx-fxml:$javaFXVersion") // If you use FXML
+    implementation("org.openjfx:javafx-fxml:$javaFXVersion")
 }
 
 javafx {
@@ -24,10 +24,5 @@ javafx {
 }
 
 application {
-    // Define the main class for the application.
-    applicationDefaultJvmArgs = listOf(
-        "--module-path", "/Users/basil/Downloads/javafx-sdk-17.0.13/lib",
-        "--add-modules", "javafx.controls,javafx.fxml"
-    )
-    mainClass.set("it.unicam.cs.mpmgc.formula1.utilities.MainFX")
+    mainClass.set("it.unicam.cs.mpmgc.formula1.GUI.MainFX")
 }

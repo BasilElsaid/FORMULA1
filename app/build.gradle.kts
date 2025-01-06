@@ -4,6 +4,7 @@
 
 plugins {
     id("it.unicam.cs.mpmgc.formula1.java-application-conventions")
+    id("application")
 }
 
 dependencies {
@@ -11,6 +12,5 @@ dependencies {
 }
 
 application {
-    // Define the main class for the application.
-    mainClass.set("it.unicam.cs.mpmgc.formula1.app.App")
+    mainClass.set("it.unicam.cs.mpmgc.formula1.App")
 }

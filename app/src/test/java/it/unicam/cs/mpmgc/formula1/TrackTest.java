@@ -24,7 +24,10 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import it.unicam.cs.mpmgc.formula1.players.Car;
+import it.unicam.cs.mpmgc.formula1.players.HumanMovementStrategy;
 import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.track.TrackRenderer;
 import it.unicam.cs.mpmgc.formula1.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class TrackTest {
 
@@ -69,6 +73,24 @@ class TrackTest {
     }
 
     @Test
+    public void testCheckValidMove(){
+        Position validMove = new Position(1,1);
+        assertTrue(track.checkValidMove(validMove));
+    }
+
+    @Test
+    public void testInvalidMove(){
+        Position invalidMove = new Position(10,1);
+        assertFalse(track.checkValidMove(invalidMove));
+    }
+
+    @Test
+    public void testInvalidMoveForObstacle(){
+        Position validMoveButAnotherBotPresent = new Position(3,3);
+        assertFalse(track.checkValidMove(validMoveButAnotherBotPresent));
+    }
+
+    @Test
     public void testFinishLinePosition(){
         List<Position> finishLine = track.getFinishLine();
 
@@ -76,4 +98,18 @@ class TrackTest {
         assertTrue(finishLine.contains(new Position(2,5)));
         assertTrue(finishLine.contains(new Position(2,6)));
     }
+
+    @Test
+    public void testPlaceAndClearPlayerPosition(){
+        TrackRenderer trackRenderer = new TrackRenderer();
+        Car player = new Car("player1", new HumanMovementStrategy(track));
+        player.updatePosition(new Position(1, 1));
+
+        trackRenderer.placePlayer(player, track);
+        assertEquals('P', track.getTrack()[1][1]);
+
+        trackRenderer.clearPlayerPosition(player, track);
+        assertEquals('.', track.getTrack()[1][1]);
+    }
+
 }

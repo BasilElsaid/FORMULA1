@@ -24,55 +24,98 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import it.unicam.cs.mpmgc.formula1.players.HardBotStrategy;
-import it.unicam.cs.mpmgc.formula1.players.Car;
-import it.unicam.cs.mpmgc.formula1.players.Directions;
-import it.unicam.cs.mpmgc.formula1.players.iCar;
+import it.unicam.cs.mpmgc.formula1.players.*;
 import it.unicam.cs.mpmgc.formula1.track.Track;
 import it.unicam.cs.mpmgc.formula1.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HardBotStrategyTest {
 
     Track track;
-    HardBotStrategy botStrategy;
-    iCar BotCar;
+    HardBotStrategy hardBotStrategy;
+    EasyBotStrategy easyBotStrategy;
+    Car hardBot;
+    Car easyBot;
 
     @BeforeEach
     public void trackSetUp(){
-        track = new Track(5,6);
-        botStrategy = new HardBotStrategy(track);
-        BotCar = new Car("Bot1", botStrategy);
-    }
+        List<String> trackLines = new ArrayList<>();
+        trackLines.add("########");
+        trackLines.add("#......#");
+        trackLines.add("#......#");
+        trackLines.add("#__....#");
+        trackLines.add("########");
 
-    @Test
-    public void testCheckValidMove(){
-        track.getTrack()[1][1] = '.';
-        Position validMove = new Position(1,1);
-        assertTrue(track.checkValidMove(validMove));
-    }
+        track = new Track(5, 8);
+        track.createTrack(trackLines);
 
-    @Test
-    public void testInvalidMove(){
-        Position invalidMove = new Position(10,1);
-        assertFalse(track.checkValidMove(invalidMove));
-    }
+        hardBotStrategy = new HardBotStrategy(track);
+        easyBotStrategy = new EasyBotStrategy(track);
+        hardBot = new Car("Bot1", hardBotStrategy);
+        easyBot = new Car("Bot2", easyBotStrategy);
 
-    @Test
-    public void testInvalidMoveForObstacle(){
-        track.getTrack()[3][3] = 'B';
-        Position validMoveButAnotherBotPresent = new Position(3,3);
-        assertFalse(track.checkValidMove(validMoveButAnotherBotPresent));
     }
 
     @Test
     public void testBotInitialDefaultDirection(){
-        assertEquals(Directions.RIGHT, botStrategy.getNextDirection());
+        assertEquals(Directions.RIGHT, hardBotStrategy.getNextDirection());
+        assertEquals(Directions.RIGHT, easyBotStrategy.getNextDirection());
     }
 
+    @Test
+    public void testEasyBotNextDirection(){
+        easyBot.updatePosition(new Position(2, 1));
+        easyBot.getMovementStrategy().move(easyBot.getCurrentPosition());
+        Position easyBotNextPos = easyBot.getCurrentPosition();
 
+        assertEquals(easyBotNextPos, new Position(2,2));
+    }
+
+    @Test
+    public void testHardBotNextDirection(){
+        hardBot.updatePosition(new Position(1, 1));
+        hardBot.getMovementStrategy().move(hardBot.getCurrentPosition());
+        Position hardBotNextPos = hardBot.getCurrentPosition();
+
+        boolean expectedPos =
+                (hardBotNextPos.getRow() == 1 && hardBotNextPos.getColumn() == 2)   // speed = 1
+             || (hardBotNextPos.getRow() == 1 && hardBotNextPos.getColumn() == 3);  // speed = 2
+
+        assertTrue(expectedPos);
+    }
+
+    @Test
+    public void testEasyBotNextDirectionOnObstacle(){
+        easyBot.updatePosition(new Position(1, 6));
+
+        easyBot.getMovementStrategy().move(easyBot.getCurrentPosition());
+        Position easyBotNextPos = easyBot.getCurrentPosition();
+        assertEquals(easyBotNextPos, new Position(1,6)); //WILL NOT MOVE
+
+        easyBot.getMovementStrategy().move(easyBot.getCurrentPosition());
+        Position easyBotNextPos2 = easyBot.getCurrentPosition();
+        assertEquals(easyBotNextPos, new Position(2,6)); //WILL GO DOWN
+    }
+
+    @Test
+    public void testHardBotNextDirectionOnObstacle(){
+        hardBot.updatePosition(new Position(1, 6));
+
+        hardBot.getMovementStrategy().move(hardBot.getCurrentPosition()); // RIGHT IS WALL '#'
+        Position hardBotNextPos = hardBot.getCurrentPosition();
+
+        //CHANGES DIRECTION TO DOWN
+        boolean expectedPos =
+                (hardBotNextPos.getRow() == 2 && hardBotNextPos.getColumn() == 6)   //WITH SPEED = 1
+             || (hardBotNextPos.getRow() == 3 && hardBotNextPos.getColumn() == 6);  //WITH SPEED = 2
+
+        assertTrue(expectedPos);
+    }
 
 }

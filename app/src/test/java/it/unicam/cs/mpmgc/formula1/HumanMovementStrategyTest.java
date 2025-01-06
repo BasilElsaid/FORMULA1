@@ -25,9 +25,7 @@
 package it.unicam.cs.mpmgc.formula1;
 
 import it.unicam.cs.mpmgc.formula1.players.Car;
-import it.unicam.cs.mpmgc.formula1.players.Directions;
 import it.unicam.cs.mpmgc.formula1.players.HumanMovementStrategy;
-import it.unicam.cs.mpmgc.formula1.players.iCar;
 import it.unicam.cs.mpmgc.formula1.track.Track;
 import it.unicam.cs.mpmgc.formula1.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,58 +39,42 @@ class HumanMovementStrategyTest {
 
     private Track track;
     private HumanMovementStrategy humanStrategy;
-    private iCar humanCar;
+    private Car humanCar;
 
     @BeforeEach
     public void trackSetUp(){
         track = new Track(5, 6);
         humanStrategy = new HumanMovementStrategy(track);
-        humanCar = new Car("Human1", humanStrategy);
-    }
-
-    @Test
-    public void testCheckValidMove(){
-        track.getTrack()[1][1] = '.';
-        Position validMove = new Position(1,1);
-        assertTrue(track.checkValidMove(validMove));
-    }
-
-    @Test
-    public void testInvalidMove(){
-        Position invalidMove = new Position(10,1);  // out of bounders
-        assertFalse(track.checkValidMove(invalidMove));
-    }
-
-    @Test
-    public void testInvalidMoveForObstacle(){
-        track.getTrack()[3][3] = 'B';   // inside track, but there is another bot there
-        Position validMoveBotPresent = new Position(3,3);
-        assertFalse(track.checkValidMove(validMoveBotPresent));
+        humanCar = new Car("player1", humanStrategy);
     }
 
     @Test
     public void testSetNextDirection(){
+        humanCar.updatePosition(new Position(5,5));
         track.getTrack()[4][5] = '.';
         System.setIn(new ByteArrayInputStream("W\n".getBytes()));
-        humanStrategy.move(new Position(5,5));
-        assertEquals(Directions.UP, humanStrategy.getNextDirection());
+        humanStrategy.move(humanCar.getCurrentPosition());
+
+        assertEquals(new Position(4, 5), humanCar.getCurrentPosition());
 
         track.getTrack()[4][4] = '.';
         System.setIn(new ByteArrayInputStream("A\n".getBytes()));
-        humanStrategy.move(new Position(4,5));
-        assertEquals(Directions.LEFT, humanStrategy.getNextDirection());
+        humanStrategy.move(humanCar.getCurrentPosition());
+
+        assertEquals(new Position(4, 4), humanCar.getCurrentPosition());
     }
 
     @Test
     public void testSpeedIncrease(){
+        humanCar.updatePosition(new Position(5,5));
         track.getTrack()[4][5] = '.';
         System.setIn(new ByteArrayInputStream("W\n".getBytes()));
-        humanStrategy.move(new Position(5,5));
+        humanStrategy.move(humanCar.getCurrentPosition());
         assertEquals(1, humanStrategy.getSpeed());
 
         track.getTrack()[3][5] = '.';
         System.setIn(new ByteArrayInputStream("W\n".getBytes()));   // same direction so increase speed
-        humanStrategy.move(new Position(4,5));
+        humanStrategy.move(humanCar.getCurrentPosition());
         assertEquals(2, humanStrategy.getSpeed());
     }
 

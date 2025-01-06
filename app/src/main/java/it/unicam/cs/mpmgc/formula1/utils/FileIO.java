@@ -31,8 +31,8 @@ import java.util.List;
 
 public class FileIO {
 
-    private List<String> trackLines;
-    private List<String> playerLines;
+    private final List<String> trackLines;
+    private final List<String> playerLines;
     private int maxPlayers;
 
     public FileIO(){
