@@ -50,8 +50,8 @@ class GameSetupAndPlayTest {
     public void TestGameInitializeTrack(){
         Track track = setup.getTrack();
         assertNotNull(track);
-        assertEquals(16, track.getRows());
-        assertEquals(14, track.getColumns());
+        assertEquals(18, track.getRows());
+        assertEquals(20, track.getColumns());
     }
 
     @Test

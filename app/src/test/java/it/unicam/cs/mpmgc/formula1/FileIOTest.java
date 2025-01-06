@@ -49,9 +49,9 @@ class FileIOTest {
     @Test
     public void TestReadFile(){
         List<String> trackLines = fileIO.getTrackLines();
-        assertEquals(16, trackLines.size());
-        assertEquals("##############", trackLines.get(0));
-        assertEquals("#___######...#", trackLines.get(7));
+        assertEquals(18, trackLines.size());
+        assertEquals("####################", trackLines.get(0));
+        assertEquals("#______######......#", trackLines.get(8));
 
         List<String> playerLines = fileIO.getPlayerLines();
         assertEquals(3, playerLines.size());
@@ -60,8 +60,8 @@ class FileIOTest {
     @Test
     public void TestLoadTrack(){
         int[] dimensions = fileIO.loadTrack();
-        assertEquals(16, dimensions[0]); // rows
-        assertEquals(14, dimensions[1]); // columns
+        assertEquals(18, dimensions[0]); // rows
+        assertEquals(20, dimensions[1]); // columns
     }
 
     @Test
