@@ -35,7 +35,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HardBotStrategyTest {
+class BotStrategyTest {
 
     Track track;
     HardBotStrategy hardBotStrategy;

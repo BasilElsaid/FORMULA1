@@ -28,6 +28,7 @@ import it.unicam.cs.mpmgc.formula1.utils.FileIO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,5 +72,29 @@ class FileIOTest {
         assertEquals("HardBot,bot2", playerLines.get(1));
         assertEquals("Human,player1", playerLines.get(2));
     }
+
+    @Test
+    public void parseTrackEmptyFile(){
+        List<String> trackLines2 = new ArrayList<>();
+        assertThrows(IllegalStateException.class,
+                () -> fileIO.parseTrack(trackLines2), "TRACK FILE IS EMPTY");
+    }
+
+    @Test
+    public void parsePlayersMaxPlayersException(){
+        List<String> playerLines2 = new ArrayList<>();
+        playerLines2.add("bot1, anything"); // WITHOUT THE MAX PLAYERS NUMBER
+        assertThrows(IllegalStateException.class,
+                () -> fileIO.parsePlayers(playerLines2), "INVALID MAX PLAYERS VALUE");
+    }
+
+    @Test
+    public void parsePlayersEmptyFile(){
+        List<String> playerLines3 = new ArrayList<>();
+        assertThrows(IllegalStateException.class,
+                () -> fileIO.parsePlayers(playerLines3), "PLAYERS FILE IS EMPTY");
+    }
+
+
 
 }

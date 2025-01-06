@@ -36,7 +36,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameSetupAndPlayTest {
+class GameTest {
 
     GameSetup setup;
 
