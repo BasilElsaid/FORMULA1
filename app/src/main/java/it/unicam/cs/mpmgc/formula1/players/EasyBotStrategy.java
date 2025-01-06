@@ -28,8 +28,6 @@ package it.unicam.cs.mpmgc.formula1.players;
 import it.unicam.cs.mpmgc.formula1.track.Track;
 import it.unicam.cs.mpmgc.formula1.utils.Position;
 
-import java.util.Random;
-
 public class EasyBotStrategy implements iMovementStrategy{
 
     private Directions nextDirection;
@@ -66,8 +64,7 @@ public class EasyBotStrategy implements iMovementStrategy{
 
     @Override
     public void setSpeed() {
-        Random random = new Random();
-        speed = 1 + random.nextInt(2);
+        speed = 1;
     }
 
     @Override
