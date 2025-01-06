@@ -103,13 +103,8 @@ public class GameSetup{
             default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
         }
         player.updatePosition(new Position(playerIndex, INITIAL_PLAYER_COLUMN));
-        if (!track.checkValidMove(player.getCurrentPosition())){
-            players.add(player);
-            playerIndex++;
-        }
-        else {
-            System.err.println("No Paths are available for : " + playerName);
-        }
+        players.add(player);
+        playerIndex++;
     }
 
     public void renderGame(){
