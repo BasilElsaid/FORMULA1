@@ -39,7 +39,11 @@ class FileIOTest {
     @BeforeEach
     public void SetUp(){
         fileIO = new FileIO();
-        fileIO.readAndParseFile("TrackAndPlayers.txt");
+        List<String> trackLines = fileIO.readAndParseFile("trackFormat.txt");
+        List<String> playerLines = fileIO.readAndParseFile("playersFormat.txt");
+
+        fileIO.parseTrack(trackLines);
+        fileIO.parsePlayers(playerLines);
     }
 
     @Test

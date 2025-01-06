@@ -60,8 +60,13 @@ public class GameSetup{
     }
 
     public void loadTrackAndPlayers(){
-        fileIO.readAndParseFile("TrackAndPlayers.txt");
+        List<String> trackLines = fileIO.readAndParseFile("trackFormat.txt");
+        List<String> playerLines = fileIO.readAndParseFile("playersFormat.txt");
+
+        fileIO.parseTrack(trackLines);
+        fileIO.parsePlayers(playerLines);
     }
+
     public void checkInitializedTrack(){
         if (track == null){
             throw new IllegalArgumentException("Track must be initialized before initializing players.");

@@ -1,0 +1,3 @@
+Bot,bot1
+Bot,bot2
+Human,player1

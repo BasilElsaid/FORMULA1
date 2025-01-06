@@ -41,36 +41,38 @@ public class FileIO {
 
 
     /**
-     * reads the file TrackAndPlayers.txt, saves its data in fileLines,
-     * then calls the method parseFile(fileLines).
+     * reads a file, saves its data in fileLines.
      */
-    public void readAndParseFile(String file){
+    public List<String> readAndParseFile(String file){
+        List<String> fileLines;
         try {
             Path filePath = Path.of(getClass().getClassLoader().getResource(file).toURI());
-            List<String> fileLines = Files.readAllLines(filePath);
-            parseFile(fileLines);
+            fileLines = Files.readAllLines(filePath);
         } catch (Exception e){
             throw new RuntimeException("Error reading the file", e);
+        }
+        return fileLines;
+    }
+
+    /**
+     * it adds the data from track txt. file into trackLines arrayList.
+     * @param fileLines the data from track txt. file
+     */
+    public void parseTrack(List<String> fileLines){
+        trackLines.clear();
+        for (String line : fileLines){
+            trackLines.add(line);
         }
     }
 
     /**
-     * it divides the data into track Data and players Data,
-     * each piece is saved into its specific ArrayList defined above,
-     * which are "trackLines and playerLines"
-     * @param fileLines the data from TrackAndPlayers.txt file
+     * it adds the data from players txt. file into playerLines arrayList.
+     * @param fileLines the data from players txt. file
      */
-    public void parseFile(List<String> fileLines){
-        trackLines.clear();
+    public void parsePlayers(List<String> fileLines){
         playerLines.clear();
-
         for (String line : fileLines){
-            if(line.contains("#") || line.contains(".")){
-                trackLines.add(line);
-            }
-            else {
-                playerLines.add(line);
-            }
+            playerLines.add(line);
         }
     }
 
