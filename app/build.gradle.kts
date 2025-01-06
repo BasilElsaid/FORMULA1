@@ -7,10 +7,6 @@ plugins {
     id("application")
 }
 
-dependencies {
-    implementation("org.apache.commons:commons-text")
-}
-
 application {
     mainClass.set("it.unicam.cs.mpmgc.formula1.App")
 }
