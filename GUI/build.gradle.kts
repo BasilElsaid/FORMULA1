@@ -10,6 +10,10 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.14"
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation(project(":app"))
     implementation("org.openjfx:javafx-base:$javaFXVersion")
