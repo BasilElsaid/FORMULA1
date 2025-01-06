@@ -42,34 +42,34 @@ class HardBotStrategyTest {
     iCar BotCar;
 
     @BeforeEach
-    public void TrackSetUp(){
+    public void trackSetUp(){
         track = new Track(5,6);
         botStrategy = new HardBotStrategy(track);
         BotCar = new Car("Bot1", botStrategy);
     }
 
     @Test
-    public void TestCheckValidMove(){
+    public void testCheckValidMove(){
         track.getTrack()[1][1] = '.';
         Position validMove = new Position(1,1);
         assertTrue(track.checkValidMove(validMove));
     }
 
     @Test
-    public void TestInvalidMove(){
+    public void testInvalidMove(){
         Position invalidMove = new Position(10,1);
         assertFalse(track.checkValidMove(invalidMove));
     }
 
     @Test
-    public void TestInvalidMoveForObstacle(){
+    public void testInvalidMoveForObstacle(){
         track.getTrack()[3][3] = 'B';
         Position validMoveButAnotherBotPresent = new Position(3,3);
         assertFalse(track.checkValidMove(validMoveButAnotherBotPresent));
     }
 
     @Test
-    public void TestBotInitialDefaultDirection(){
+    public void testBotInitialDefaultDirection(){
         assertEquals(Directions.RIGHT, botStrategy.getNextDirection());
     }
 

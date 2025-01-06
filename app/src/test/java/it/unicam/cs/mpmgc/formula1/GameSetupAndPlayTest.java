@@ -47,15 +47,15 @@ class GameSetupAndPlayTest {
     }
 
     @Test
-    public void TestGameInitializeTrack(){
+    public void testGameInitializeTrack(){
         Track track = setup.getTrack();
         assertNotNull(track);
-        assertEquals(18, track.getRows());
-        assertEquals(20, track.getColumns());
+        assertEquals(16, track.getRows());
+        assertEquals(14, track.getColumns());
     }
 
     @Test
-    public void TestGameInitializePlayers(){
+    public void testGameInitializePlayers(){
         List<Car> players = setup.getPlayers();
         assertEquals(3, players.size());
         assertEquals("bot1", players.get(0).getName());
@@ -64,7 +64,7 @@ class GameSetupAndPlayTest {
     }
 
     @Test
-    public void TestGamePlayWinnerDetection(){
+    public void testGamePlayWinnerDetection(){
         GamePlay game = new GamePlay(setup);
 
         iCar player1 = setup.getPlayers().get(0);

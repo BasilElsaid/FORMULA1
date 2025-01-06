@@ -37,7 +37,7 @@ class FileIOTest {
     private FileIO fileIO;
 
     @BeforeEach
-    public void SetUp(){
+    public void setUp(){
         fileIO = new FileIO();
         List<String> trackLines = fileIO.readFile("trackFormat.txt");
         List<String> playerLines = fileIO.readFile("playersFormat.txt");
@@ -47,25 +47,25 @@ class FileIOTest {
     }
 
     @Test
-    public void TestReadFile(){
+    public void testReadFile(){
         List<String> trackLines = fileIO.getTrackLines();
-        assertEquals(18, trackLines.size());
-        assertEquals("####################", trackLines.get(0));
-        assertEquals("#______######......#", trackLines.get(8));
+        assertEquals(16, trackLines.size());
+        assertEquals("##############", trackLines.get(0));
+        assertEquals("#___######...#", trackLines.get(7));
 
         List<String> playerLines = fileIO.getPlayerLines();
         assertEquals(3, playerLines.size());
     }
 
     @Test
-    public void TestLoadTrack(){
+    public void testLoadTrack(){
         int[] dimensions = fileIO.loadTrack();
-        assertEquals(18, dimensions[0]); // rows
-        assertEquals(20, dimensions[1]); // columns
+        assertEquals(16, dimensions[0]); // rows
+        assertEquals(14, dimensions[1]); // columns
     }
 
     @Test
-    public void TestLoadPlayers(){
+    public void testLoadPlayers(){
         List<String> playerLines = fileIO.getPlayerLines();
         assertEquals("EasyBot,bot1", playerLines.get(0));
         assertEquals("HardBot,bot2", playerLines.get(1));

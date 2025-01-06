@@ -39,7 +39,7 @@ class TrackTest {
     private Track track;
 
     @BeforeEach
-    public void TrackSetUp(){
+    public void trackSetUp(){
         List<String> trackLines = new ArrayList<>();
         trackLines.add("########");
         trackLines.add("#......#");
@@ -51,7 +51,7 @@ class TrackTest {
     }
 
     @Test
-    public void TestCreateTrack(){
+    public void testCreateTrack(){
         char[][] trackMatrix = track.getTrack();
 
         assertEquals(4, track.getRows());       // rows
@@ -63,18 +63,17 @@ class TrackTest {
     }
 
     @Test
-    public void TestExceptionsCreateTrack(){
+    public void testExceptionsCreateTrack(){
         assertThrows(IllegalArgumentException.class,
                 () -> track.createTrack(null), "Null Track");
     }
 
     @Test
-    public void TestFinishLinePosition(){
+    public void testFinishLinePosition(){
         List<Position> finishLine = track.getFinishLine();
 
         assertEquals(2, finishLine.size());
         assertTrue(finishLine.contains(new Position(2,5)));
         assertTrue(finishLine.contains(new Position(2,6)));
     }
-
 }
