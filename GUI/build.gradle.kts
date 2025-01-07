@@ -14,10 +14,6 @@ repositories {
 
 dependencies {
     implementation(project(":app"))
-    implementation("org.openjfx:javafx-base:17.0.13")
-    implementation("org.openjfx:javafx-controls:17.0.13")
-    implementation("org.openjfx:javafx-graphics:17.0.13")
-    implementation("org.openjfx:javafx-fxml:17.0.13")
 }
 
 javafx {
