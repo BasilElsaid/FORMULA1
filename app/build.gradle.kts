@@ -5,3 +5,7 @@
 plugins {
     id("it.unicam.cs.mpmgc.formula1.java-application-conventions")
 }
+
+tasks.named("run").configure {
+    enabled = false
+}
