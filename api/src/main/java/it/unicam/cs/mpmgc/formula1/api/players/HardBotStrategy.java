@@ -31,7 +31,10 @@ import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 import java.util.Random;
 
 /**
- * This class handles creating a Bot strategy and applying the movement logic of the Bot.
+ * This class implements a movement strategy for an HARD bot controlled car.
+ * The bot follows a predefined logic to move on the track.
+ *  It cycles through the directions, and do not stop in any turn.
+ *  It moves with speed equal to 1 or 2.
  */
 
 public class HardBotStrategy implements iMovementStrategy {
@@ -41,12 +44,22 @@ public class HardBotStrategy implements iMovementStrategy {
     private final Track track;
     private iCar botCar;
 
+    /**
+     * Creates a new instance of the bot car associated with the track.
+     * It sets the starting speed to 1, and starting direction to Right.
+     * @param track the track on which the car moves.
+     */
     public HardBotStrategy(Track track){
         this.nextDirection = Directions.RIGHT;
         this.speed = 1;
         this.track = track;
     }
 
+    /**
+     * The HARD Bot calculates the next position, and check if it is valid.
+     * If it is not valid, it keeps trying to calculate the next direction until it finds a valid move.
+     * @param currentPosition the current position of the car.
+     */
     @Override
     public void move(Position currentPosition) {
         Position newPos = calculateNextPosition(currentPosition);
@@ -58,6 +71,9 @@ public class HardBotStrategy implements iMovementStrategy {
         botCar.updatePosition(newPos);
     }
 
+    /**
+     * Bot movement logic.
+     */
     @Override
     public void setNextDirection() {
         switch (nextDirection){
@@ -68,6 +84,9 @@ public class HardBotStrategy implements iMovementStrategy {
         }
     }
 
+    /**
+     * For HARD Bot, speed can be 1 or 2.
+     */
     @Override
     public void setSpeed() {
         Random random = new Random();

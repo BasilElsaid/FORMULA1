@@ -32,7 +32,8 @@ import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 import java.util.Scanner;
 
 /**
- * This class handles creating a Human Car strategy and applying the movement logic of the Human Car.
+ * This class implements a movement strategy for a human controlled car.
+ * This strategy gets User input to determine car's direction and move the car on track.
  */
 
 public class HumanMovementStrategy implements iMovementStrategy {
@@ -44,12 +45,23 @@ public class HumanMovementStrategy implements iMovementStrategy {
     private iCar humanCar;
     private final ConsoleMessages messages;
 
+    /**
+     * Creates a new instance of the class associated with the track.
+     * It sets the starting speed to 1.
+     * @param track the track on which the human car moves.
+     */
     public HumanMovementStrategy(Track track){
         this.speed = 1;
         this.track = track;
         this.messages = new ConsoleMessages();
     }
 
+    /**
+     * The logic is to set the next direction and speed, and calculate the next position.
+     * if the new position is not valid, you get an error message in console, and the car do not move.
+     * otherwise the car moves, and your current speed is printed in console.
+     * @param currentPosition the current position of the car.
+     */
     @Override
     public void move(Position currentPosition) {
         setNextDirection();
@@ -66,6 +78,10 @@ public class HumanMovementStrategy implements iMovementStrategy {
         messages.speedMessage(speed);
     }
 
+    /**
+     * Setting the next direction is based on user input.
+     * In case of invalid input, an error message is printed in console, and the user is asked to retry.
+     */
     @Override
     public void setNextDirection(){
         Scanner scan = new Scanner(System.in);
@@ -90,6 +106,11 @@ public class HumanMovementStrategy implements iMovementStrategy {
         nextDirection = direction;
     }
 
+    /**
+     * Setting the car speed logic is the following:
+     * if you keep direction, your speed increases by 1 until MAX 3,
+     * if you change direction, your speed resets back to 1.
+     */
     @Override
     public void setSpeed(){
         if (lastDirection == nextDirection){
@@ -121,6 +142,7 @@ public class HumanMovementStrategy implements iMovementStrategy {
 
     @Override
     public Directions getNextDirection(){ return nextDirection; }
+
 
     @Override
     public void setCarOwner(iCar car) {

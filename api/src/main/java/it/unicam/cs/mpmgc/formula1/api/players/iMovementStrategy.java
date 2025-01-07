@@ -27,45 +27,52 @@ package it.unicam.cs.mpmgc.formula1.api.players;
 
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
+/**
+ * This interface defines a contract for movement strategies used by cars on track.
+ * Movement strategies can be Human controlled OR bot controlled.
+ */
 public interface iMovementStrategy {
 
     /**
-     * finds the position where the car will move to and moves it.
-     *
+     * Determines the next position for the car, and moves it to that position.
      * @param currentPosition the current position of the car.
      */
     void move(Position currentPosition);
 
     /**
-     * sets the next direction by input for user or by strategy steps for bots.
+     * Sets the next direction of the car based on User input OR Bot strategy.
      */
     void setNextDirection();
 
     /**
-     * sets the speed by keeping direction for users, or randomly for bots.
+     * Sets the speed of the car.
      */
     void setSpeed();
 
     /**
-     * calculates the new position.
-     * @param currentPosition the position of test.
-     * @return the new position.
+     * Calculates the new position of the car, based on its current position and direction.
+     * @param currentPosition the current position of the car.
+     * @return the calculated new position.
      */
     Position calculateNextPosition(Position currentPosition);
 
     /**
+     * Gets the speed of the car.
      * @return the car speed.
      */
     int getSpeed();
 
     /**
+     * Gets the next direction of the car.
      * @return the car next direction.
      */
     Directions getNextDirection();
 
     /**
-     * connects the car instance with its movement strategy.
-     * @param car the car to be connected to this movement strategy.
+     * Associates a car instance with a movement strategy.
+     * After creating the strategy instance we assign it to the car.
+     * @param car the car to be associated to the movement strategy.
      */
     void setCarOwner(iCar car);
 }
+

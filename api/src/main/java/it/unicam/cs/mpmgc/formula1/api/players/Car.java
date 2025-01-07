@@ -27,14 +27,21 @@ package it.unicam.cs.mpmgc.formula1.api.players;
 
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
-
-
+/**
+ * This class represents a Car object.
+ * It implements the iCar interface to provide the necessary behaviour of a car.
+ */
 public class Car implements iCar {
 
     private final String name;
     private Position currentPosition;
     private final iMovementStrategy movementStrategy;
 
+    /**
+     * creates a car instance with specified name and movement strategy.
+     * @param name the car name.
+     * @param movementStrategy the car movement strategy which determines the behaviour on track.
+     */
     public Car(String name, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
@@ -59,7 +66,6 @@ public class Car implements iCar {
 
     @Override
     public void updatePosition(Position newPosition) {
-        //currentPosition.setPosition(newPosition);
         int row = newPosition.getRow();
         int column = newPosition.getColumn();
         this.currentPosition = new Position(row, column);

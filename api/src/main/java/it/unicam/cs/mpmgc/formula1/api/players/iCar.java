@@ -27,6 +27,10 @@ package it.unicam.cs.mpmgc.formula1.api.players;
 
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
+/**
+ * This interface defines the contract for a car.
+ * It represents a racer with a name, movement strategy, current position.
+ */
 public interface iCar {
 
     /**
@@ -35,18 +39,20 @@ public interface iCar {
     String getName();
 
     /**
+     * Gets the name of the car.
      * @return car current position.
      */
     Position getCurrentPosition();
 
     /**
+     * Gets the movement strategy of the car.
      * @return car movement strategy "Bot/Human".
      */
     iMovementStrategy getMovementStrategy();
 
     /**
-     * updates the position of the racer on track.
-     * @param newPosition the new position of the racer.
+     * updates the position of the car on track.
+     * @param newPosition the new position of the car.
      */
     void updatePosition(Position newPosition);
 

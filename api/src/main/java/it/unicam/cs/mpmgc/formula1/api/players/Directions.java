@@ -25,22 +25,25 @@
 
 package it.unicam.cs.mpmgc.formula1.api.players;
 
+/**
+ * This enum represents the possible directions a car can move on track.
+ */
 public enum Directions {
 
     /**
-     * moves the car UP
+     * Moves the car UP-
      */
     UP,
     /**
-     * moves the car DOWN
+     * Moves the car DOWN.
      */
     DOWN,
     /**
-     * moves the car RIGHT
+     * Moves the car RIGHT.
      */
     RIGHT,
     /**
-     * moves the car LEFT
+     * Moves the car LEFT.
      */
     LEFT;
 }

@@ -28,6 +28,12 @@ package it.unicam.cs.mpmgc.formula1.api.players;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
+/**
+ * This class implements a movement strategy for an EASY bot controlled car.
+ * The bot follows a predefined logic to move on the track.
+ * It cycles through the directions, and it can stop in some turns if the next move is invalid.
+ * It moves on constant speed which is 1.
+ */
 public class EasyBotStrategy implements iMovementStrategy{
 
     private Directions nextDirection;
@@ -35,23 +41,36 @@ public class EasyBotStrategy implements iMovementStrategy{
     private final Track track;
     private iCar botCar;
 
+    /**
+     * Creates a new instance of the bot car associated with the track.
+     * It sets the starting speed to 1, and starting direction to Right.
+     * @param track the track on which the car moves.
+     */
     public EasyBotStrategy(Track track){
         this.nextDirection = Directions.RIGHT;
         this.speed = 1;
         this.track = track;
     }
 
+    /**
+     * The EASY Bot calculates the next position, and check if it is valid.
+     * If it is not valid, it does not move this turn, but calculates the direction of the next one.
+     * @param currentPosition the current position of the car.
+     */
     @Override
     public void move(Position currentPosition) {
         Position newPos = calculateNextPosition(currentPosition);
 
-        while (!track.checkValidMove(newPos)){
+        if (!track.checkValidMove(newPos)){
             setNextDirection();
             return;
         }
         botCar.updatePosition(newPos);
     }
 
+    /**
+     * Bot movement logic.
+     */
     @Override
     public void setNextDirection() {
         switch (nextDirection){
@@ -62,6 +81,9 @@ public class EasyBotStrategy implements iMovementStrategy{
         }
     }
 
+    /**
+     * For EASY Bot, speed is always 1.
+     */
     @Override
     public void setSpeed() {
         speed = 1;
