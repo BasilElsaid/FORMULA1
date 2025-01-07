@@ -27,8 +27,14 @@ package it.unicam.cs.mpmgc.formula1.api.utils;
 
 import it.unicam.cs.mpmgc.formula1.api.players.iCar;
 
+/**
+ * This class is used to display in console game status updates, player actions and error notifications.
+ */
 public class ConsoleMessages {
 
+    /**
+     * creates a new instance of ConsoleMessages.
+     */
     public ConsoleMessages(){};
 
     /**
@@ -48,7 +54,7 @@ public class ConsoleMessages {
 
     /**
      * displays the player's turn message in console.
-     * @param player the player which the turn is.
+     * @param player the player that the turn is.
      */
     public void playerTurnMessage(iCar player){
         System.out.println(player.getName() + "'s Turn!");

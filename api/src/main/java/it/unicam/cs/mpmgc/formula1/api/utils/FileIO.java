@@ -30,12 +30,19 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to read data from text files and parse it.
+ */
+
 public class FileIO {
 
     private final List<String> trackLines;
     private final List<String> playerLines;
     private int maxPlayers;
 
+    /**
+     * creates a new instance of FileIO, initializing the used variables.
+     */
     public FileIO(){
         trackLines = new ArrayList<>();
         playerLines = new ArrayList<>();
@@ -44,7 +51,10 @@ public class FileIO {
 
 
     /**
-     * reads a file, saves its data in fileLines.
+     * reads a file, and saves its data in a fileLines variable.
+     * @param file the name of the file to read.
+     * @return fileLines variable that contains the read data.
+     * @throws RuntimeException if the file can't be found or read.
      */
     public List<String> readFile(String file){
         List<String> fileLines;
@@ -59,7 +69,8 @@ public class FileIO {
 
     /**
      * it adds the data from track txt. file into trackLines arrayList.
-     * @param fileLines the data from track txt. file
+     * @param fileLines that contains the data from track txt. file.
+     * @throws IllegalStateException if the file is empty.
      */
     public void parseTrack(List<String> fileLines){
         if (fileLines.isEmpty()){
@@ -74,7 +85,9 @@ public class FileIO {
 
     /**
      * it adds the data from players txt. file into playerLines arrayList.
-     * @param fileLines the data from players txt. file
+     * it also sets the maximum number of available players from the same file.
+     * @param fileLines that contains the data from players txt. file.
+     * @throws IllegalStateException if the file is empty or maximum players value is invalid.
      */
     public void parsePlayers(List<String> fileLines){
         if (fileLines.isEmpty()){
@@ -109,7 +122,7 @@ public class FileIO {
     }
 
     /**
-     * @return trackLines arrayList.
+     * @return a list of strings representing the track layout.
      */
     public List<String> getTrackLines(){
         return trackLines;
@@ -117,8 +130,8 @@ public class FileIO {
 
     /**
      * it divides the player data into 2 parts, the first is the player type,
-     * and the second is player name, then it collects them in an arrayList and returns it.
-     * @return arrayList that contains players split data.
+     * and the second is player name, then it collects them in playerData variable.
+     * @return playerData that contains players split data.
      */
     public List<String[]> loadPlayers(){
         List<String[]> playerData = new ArrayList<>();
@@ -136,13 +149,17 @@ public class FileIO {
     }
 
     /**
-     * @return trackLine arrayList.
+     * @return a list of strings representing the player split data.
      */
     public List<String> getPlayerLines(){
         return playerLines;
     }
 
+    /**
+     * @return maximum number of available players.
+     */
     public int getMaxPlayers(){
         return maxPlayers;
     }
+
 }

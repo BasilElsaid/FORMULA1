@@ -104,7 +104,7 @@ class BotStrategyTest {
 
         easyBot.getMovementStrategy().move(easyBot.getCurrentPosition());
         Position easyBotNextPos2 = easyBot.getCurrentPosition();
-        assertEquals(easyBotNextPos, new Position(2,6)); //WILL GO DOWN
+        assertEquals(easyBotNextPos2, new Position(2,6)); //WILL GO DOWN
     }
 
     @Test

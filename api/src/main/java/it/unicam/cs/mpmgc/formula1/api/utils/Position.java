@@ -25,57 +25,45 @@
 
 package it.unicam.cs.mpmgc.formula1.api.utils;
 
-import java.util.Objects;
+/**
+ * Represents a Position on the track by a pair of coordinates (row, column).
+ */
 
-public class Position {
+public final class Position {
 
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
+    /**
+     * creates a new position with specific coordinates.
+     * @param row the row index of the position.
+     * @param column the column index of the position.
+     */
     public Position(int row, int column){
         this.row = row;
         this.column = column;
     }
 
     /**
-     * @return row number.
+     * @return row index of the position.
      */
     public int getRow() {
         return row;
     }
 
     /**
-     *  sets the row number.
-     * @param row new row number.
-     */
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    /**
-     * @return column number.
+     * @return column index of the position.
      */
     public int getColumn() {
         return column;
     }
 
     /**
-     * sets the column number.
-     * @param column new column number.
+     * compares this position to the specified object.
+     * two positions are equal if they have the same row and column values.
+     * @param o the object to compare with.
+     * @return true if the two objects are equal, false otherwise.
      */
-    public void setColumn(int column) {
-        this.column = column;
-    }
-
-    /**
-     * sets a new position.
-     * @param newPos the new position where it extracts row and column.
-     */
-    public void setPosition(Position newPos){
-        this.row = newPos.getRow();
-        this.column = newPos.getColumn();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,8 +72,16 @@ public class Position {
         return row == position.row && column == position.column;
     }
 
+    /**
+     * @return the hashcode for this position.
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(row, column);
+        int prime = 31;
+        int result = 1;
+        result = prime * result + row;
+        result = prime * result + column;
+        return result;
     }
+
 }

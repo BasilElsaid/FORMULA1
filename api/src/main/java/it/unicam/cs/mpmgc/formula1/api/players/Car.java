@@ -59,7 +59,10 @@ public class Car implements iCar {
 
     @Override
     public void updatePosition(Position newPosition) {
-        currentPosition.setPosition(newPosition);
+        //currentPosition.setPosition(newPosition);
+        int row = newPosition.getRow();
+        int column = newPosition.getColumn();
+        this.currentPosition = new Position(row, column);
     }
 
 }
