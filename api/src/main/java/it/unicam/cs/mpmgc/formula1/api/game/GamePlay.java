@@ -51,7 +51,7 @@ public class GamePlay implements iGamePlay {
      */
     public GamePlay(GameSetup setup){
         if (setup == null){
-            throw new IllegalArgumentException("Setup can not be null.")
+            throw new IllegalArgumentException("Setup can not be null.");
         }
         this.gameFinished = false;
         this.gameSetup = setup;

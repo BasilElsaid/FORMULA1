@@ -49,6 +49,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Controller class for JavaFX.
+ */
 public class Controller {
 
 
@@ -68,10 +71,16 @@ public class Controller {
     private boolean gameOver = false;
     private Timer botTimer;
 
+    /**
+     * Initializes the controller by setting up the controller and its components.
+     */
     public void initialize(){
         setup();
     }
 
+    /**
+     * Sets up the game by initializing GameSetup, GamePlay. track and players.
+     */
     private void setup(){
         gameSetup = new GameSetup();
         gameSetup.setupGame();
@@ -82,31 +91,30 @@ public class Controller {
         track = gameSetup.getTrack();
     }
 
-    // Handle switching to the game scene
+    /**
+     * Switches to the game scene, initializes the track, and sets up the game.
+     * @param event the ActionEvent triggered by the user to start the game.
+     * @throws IOException if there is an issue loading the FXML file.
+     */
     @FXML
     public void switchToGameScene(ActionEvent event) throws IOException {
-        // Load the new scene
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 
         keyHandler(scene);
 
-        // Initialize the track grid and add it to the root
-        trackGrid = (GridPane) root.lookup("#trackGrid"); // Ensure trackGrid is properly initialized in the FXML
-        displayTrack();  // Draw the track and player
+        trackGrid = (GridPane) root.lookup("#trackGrid");
+        displayTrack();
 
         setupBotMovement();
-        // Set and show the scene
         stage.setScene(scene);
         stage.show();
     }
 
-    //-------------//
-    //TRACK SECTION//
-    //------------//
-
-    // Create and return a GridPane for the track based on the parsed lines
+    /**
+     * Displays the track grid on the screen by rendering the track matrix.
+     */
     private void displayTrack(){
         trackGrid.getChildren().clear();  // Clear previous track (if any)
 
@@ -117,20 +125,22 @@ public class Controller {
 
                 Rectangle cell = new Rectangle(CELL_SIZE, CELL_SIZE);
 
-                // Set color based on cell type
                 switch (cellType){
-                    case '#' : cell.setFill(Color.BLACK); break;  // Track wall
-                    case '.' : cell.setFill(Color.LIGHTGRAY); break;  // Empty space
-                    case '_' : cell.setFill(Color.YELLOW); break;  // Special space (like checkpoints)
-                    default  : cell.setFill(Color.WHITE); break;  // Default empty cell
+                    case '#' : cell.setFill(Color.BLACK); break;
+                    case '.' : cell.setFill(Color.LIGHTGRAY); break;
+                    case '_' : cell.setFill(Color.YELLOW); break;
+                    default  : cell.setFill(Color.WHITE); break;
                 }
 
-                trackGrid.add(cell, column, row);  // Add the cell to the GridPane
+                trackGrid.add(cell, column, row);
             }
         }
         placeRacers();
     }
 
+    /**
+     * Places the players on the track grid based on their positions.
+     */
     private void placeRacers(){
         Color color;
         iMovementStrategy movementStrategy;
@@ -150,10 +160,10 @@ public class Controller {
         }
     }
 
-    //--------------//
-    //PLAYER SECTION//
-    //-------------//
-
+    /**
+     * Handles keyboard input from user for controlling the player car.
+     * @param scene the scene where the key events are obtained.
+     */
     public void keyHandler(Scene scene) {
         scene.setOnKeyPressed(event -> {
             Directions direction = null;
@@ -172,7 +182,7 @@ public class Controller {
                     direction = Directions.RIGHT;
                     break;
                 default:
-                    break; // Ignore other keys
+                    break;
             }
 
             if (direction != null) {
@@ -181,6 +191,11 @@ public class Controller {
         });
     }
 
+    /**
+     * Moves the player car in the specified direction,
+     * checks for collisions or winning conditions, and updates the track grid.
+     * @param direction the direction in which the player car is moving.
+     */
     private void movePlayer(Directions direction) {
         Car botCar1 = cars.get(0);
         Car botCar2 = cars.get(1);
@@ -209,10 +224,10 @@ public class Controller {
         }
     }
 
-    //-----------//
-    //BOT SECTION//
-    //----------//
-
+    /**
+     * Moves the bot cars based on their strategies.
+     * Checks for collisions or winning conditions after each move.
+     */
     private void moveBots() {
         Car botCar1 = cars.get(0);
         Car botCar2 = cars.get(1);
@@ -232,6 +247,9 @@ public class Controller {
         displayTrack();
     }
 
+    /**
+     * Sets up a timer for bot movement.
+     */
     private void setupBotMovement() {
         botTimer = new Timer(true); // Daemon timer to stop when the application closes
         botTimer.scheduleAtFixedRate(new TimerTask() {
@@ -242,37 +260,38 @@ public class Controller {
         }, 0, 250); // Schedule with a delay of 0ms and period of 250ms
     }
 
-    //------------//
-    //GAME SECTION//
-    //-----------//
-
+    /**
+     * When the User loses the game, this method stops bots timer and displays an alert with lose message.
+     */
     private void gameLost() {
         if (gameOver) return;
         gameOver = true;
         if (botTimer != null) botTimer.cancel();
 
         Platform.runLater(() -> {
-            showAlert("Game Over", "You Lost!", "A bot reached the finish line or caught you.", Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Game Over");
+            alert.setHeaderText("You Lost!");
+            alert.setContentText("A bot reached the finish line or caught you.");
+            alert.showAndWait();
             stage.close();
         });
     }
 
+    /**
+     * When the User wins the game, this method stops bots timer and displays an alert with win message.
+     */
     private void gameWon() {
         if (botTimer != null) botTimer.cancel();
 
         Platform.runLater(() -> {
-            showAlert("Game Over", "Congratulations!", "You have reached the finish line and won the game!", Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText("Congratulations!");
+            alert.setContentText("You have reached the finish line and won the game!");
+            alert.showAndWait();
             stage.close();
         });
     }
-
-    private void showAlert(String title, String header, String content, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
 
 }

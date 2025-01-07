@@ -33,6 +33,9 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import java.io.IOException;
 
+/**
+ * Main JavaFX Class.
+ */
 public class MainFX extends Application {
 
     @Override
