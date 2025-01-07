@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "FORMULA1"
-include("app", "GUI")
+include("api", "app")
