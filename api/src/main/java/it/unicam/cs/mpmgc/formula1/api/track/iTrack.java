@@ -25,24 +25,28 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
-
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
 import java.util.List;
 
+
+/**
+ * This interface defines a contract to implement e racing track.
+ * Provides methods to create a track, and access its data.
+ */
 public interface iTrack {
 
     /**
-     * creates the track from a given List of strings.
-     * it also sets the final positions.
+     * Creates the track from a given List of strings.
+     * It also identifies and sets the final positions.
      */
     void createTrack(List<String> trackLines);
 
     /**
-     * check if the move is in or out bounders before moving.
+     * Checks if a Position on the track is valid for a move or not.
      * @param move the position to move to.
-     * @return true if position is free to move/final position,
-     *         false if position is out of bounders/occupied.
+     * @return true if position is free to move or final position.
+     *         false if position is out of bounds or occupied.
      */
     boolean checkValidMove(Position move);
 

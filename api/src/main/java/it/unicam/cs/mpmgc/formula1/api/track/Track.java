@@ -30,6 +30,11 @@ import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a track.
+ * It implements the iTrack interface to include methods to create a track,
+ * validate moves, and get track details such as finish lines.
+ */
 public class Track implements iTrack {
 
     private final int rows;
@@ -37,6 +42,13 @@ public class Track implements iTrack {
     private final char[][] track;
     private final List<Position> finishPositions;
 
+    /**
+     * Creates a new Track instance with specified number of rows and columns.
+     * So, it initializes the track as a 2D character array,
+     * and prepares a list that will contain the finish line positions.
+     * @param rows the number of rows in the track matrix.
+     * @param columns the number of columns in the track matrix.
+     */
     public Track(int rows, int columns){
         this.rows = rows;
         this.columns = columns;

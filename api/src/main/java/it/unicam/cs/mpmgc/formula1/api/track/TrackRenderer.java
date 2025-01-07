@@ -27,13 +27,20 @@ package it.unicam.cs.mpmgc.formula1.api.track;
 
 import it.unicam.cs.mpmgc.formula1.api.players.iCar;
 
+/**
+ * This class provides methods for rendering and updating the track.
+ */
 public class TrackRenderer {
 
+    /**
+     * Creates a new instance of the class.
+     */
     public TrackRenderer(){};
 
     /**
-     * displays the whole track in console.
+     * Displays the whole track in console.
      * @param track the track to be displayed.
+     * @throws IllegalArgumentException if the provided track is null.
      */
     public void displayTrack(iTrack track){
         if (track == null){
@@ -49,7 +56,8 @@ public class TrackRenderer {
     }
 
     /**
-     * places the player's first letter on the track.
+     * Places a player on the track by placing the player's name first letter in Uppercase
+     * in its position on the track matrix.
      * @param player the player to be placed.
      * @param track the track where the player is placed.
      */
@@ -60,8 +68,9 @@ public class TrackRenderer {
     }
 
     /**
-     * removes the player letter and puts '.' as free position
-     * on the track before making the next move.
+     * Clears the player position on track matrix by changing its letter with '.' character
+     * to indicate a free position on track matrix.
+     * This is used before making the player's next move.
      * @param player the player position to be reset into '.',
      * @param track the track where we apply the changes.
      */
