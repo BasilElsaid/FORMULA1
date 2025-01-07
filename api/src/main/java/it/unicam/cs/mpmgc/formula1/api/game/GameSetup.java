@@ -34,22 +34,31 @@ import it.unicam.cs.mpmgc.formula1.api.track.TrackRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class setups the game track and players to be ready for use.
+ */
 public class GameSetup{
 
     private final List<Car> players;
-    private int playerIndex;
+    private int initialPlayerRow;
     private Track track;
     private final FileIO fileIO;
     private final TrackRenderer trackRenderer;
     private static final int INITIAL_PLAYER_COLUMN = 1;
 
+    /**
+     * Creates an instance of GameSetup, and starts an Arraylist for players data.
+     */
     public GameSetup() {
         this.players = new ArrayList<>();
-        this.playerIndex = 1;
+        this.initialPlayerRow = 1;
         this.fileIO = new FileIO();
         this.trackRenderer = new TrackRenderer();
     }
 
+    /**
+     * Loads the track and players data, and initialize them, then it renders the game to be ready.
+     */
     public void setupGame(){
         loadTrackAndPlayers();
         initializeTrack();
@@ -57,6 +66,9 @@ public class GameSetup{
         renderGame();
     }
 
+    /**
+     * Read and Parse track and player data from the given text files using FileIO methods.
+     */
     public void loadTrackAndPlayers(){
         List<String> trackLines = fileIO.readFile("trackFormat.txt");
         List<String> playerLines = fileIO.readFile("playersFormat.txt");
@@ -65,18 +77,31 @@ public class GameSetup{
         fileIO.parsePlayers(playerLines);
     }
 
+    /**
+     * Checks if the track is not null before initializing it.
+     */
     public void checkInitializedTrack(){
         if (track == null){
             throw new IllegalArgumentException("Track must be initialized before initializing players.");
         }
     }
 
+    /**
+     * Initializes the track by making a new instance of Track
+     * with rows and columns dimensions obtained from the read track file in FileIO.
+     */
     public void initializeTrack(){
         int[] dimensions = fileIO.loadTrack();
         this.track = new Track(dimensions[0], dimensions[1]);
         track.createTrack(fileIO.getTrackLines());
     }
 
+    /**
+     * Initializes the players by getting the split players data from FileIO,
+     * and passing them to createAndAddPlayers() method.
+     * It respects a maximum number of players obtained from the same players file.
+     * IT CHECKS FIRST IF THE TRACK IS INITIALIZED.
+     */
     public void initializePlayers() {
         checkInitializedTrack();
         List<String[]> playerData = fileIO.loadPlayers();
@@ -91,6 +116,13 @@ public class GameSetup{
         }
     }
 
+    /**
+     * It splits the player data into type and name, and in base of the type
+     * it creates a new Car instance with its own moving strategy.
+     * Then it updates its position to the available starting position,
+     * and adds the Car to the players arrayList
+     * @param playerData the player data which contains the name and type of car.
+     */
     public void createAndAddPlayers(String[] playerData){
         Car player ;
         String playerType = playerData[0];
@@ -101,11 +133,14 @@ public class GameSetup{
             case "Human": player = new Car(playerName, new HumanMovementStrategy(track));   break;
             default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
         }
-        player.updatePosition(new Position(playerIndex, INITIAL_PLAYER_COLUMN));
+        player.updatePosition(new Position(initialPlayerRow, INITIAL_PLAYER_COLUMN));
         players.add(player);
-        playerIndex++;
+        initialPlayerRow++;
     }
 
+    /**
+     * Places every player in its own position on the track matrix, then displays the track.
+     */
     public void renderGame(){
         for (iCar player : players){
             trackRenderer.placePlayer(player, track);
@@ -113,10 +148,22 @@ public class GameSetup{
         trackRenderer.displayTrack(track);
     }
 
+    /**
+     * Gets the players list.
+     * @return the players list.
+     */
     public List<Car> getPlayers(){return players;}
 
+    /**
+     * Gets the track.
+     * @return the track.
+     */
     public Track getTrack(){ return track; }
 
+    /**
+     * Gets the trackLines list of strings.
+     * @return the trackLines list of strings.
+     */
     public List<String> getTrackLines(){
         return fileIO.getTrackLines();
     }

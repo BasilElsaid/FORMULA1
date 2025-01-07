@@ -28,8 +28,7 @@ package it.unicam.cs.mpmgc.formula1.api.players;
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
 /**
- * This interface defines the contract for a car.
- * It represents a racer with a name, movement strategy, current position.
+ * This interface is used to represent a racer with a name, movement strategy, current position.
  */
 public interface iCar {
 

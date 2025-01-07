@@ -31,8 +31,7 @@ import java.util.List;
 
 
 /**
- * This interface defines a contract to implement e racing track.
- * Provides methods to create a track, and access its data.
+ * This interface provides the needed methods to create a track, and access its data.
  */
 public interface iTrack {
 

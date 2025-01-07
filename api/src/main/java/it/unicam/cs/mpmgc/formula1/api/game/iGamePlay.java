@@ -27,26 +27,30 @@ package it.unicam.cs.mpmgc.formula1.api.game;
 
 import it.unicam.cs.mpmgc.formula1.api.players.iCar;
 
+/**
+ * This interface provides the needed methods to handle the flow of the game including starting a game,
+ * executing turns, checking for the winner and ending the game.
+ */
 public interface iGamePlay {
 
     /**
-     * starts the game.
+     * Starts the game.
      */
     void startGame();
 
     /**
-     * ends the game.
+     * Ends the game.
      */
     void endGame();
 
     /**
-     * makes each turns' steps for the player.
-     * @param player the player which is going to do the steps.
+     * Lets the given player to do its move.
+     * @param player the player which is going to do the move.
      */
     void executeTurn(iCar player);
 
     /**
-     * checks if a player has won the race, so if he is at a final position.
+     * Checks if the player has won the race, so if he is at a final position.
      * @param player the player to be checked.
      * @return true in case a player has won, false in other case.
      */
