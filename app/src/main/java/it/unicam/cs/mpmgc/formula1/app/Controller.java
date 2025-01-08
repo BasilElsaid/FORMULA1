@@ -31,6 +31,8 @@ import it.unicam.cs.mpmgc.formula1.api.players.*;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,11 +45,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Controller class for JavaFX.
@@ -69,7 +71,7 @@ public class Controller {
     private List<String> trackLines = new ArrayList<>();
 
     private boolean gameOver = false;
-    private Timer botTimer;
+    private Timeline botTimeline;
 
     /**
      * Initializes the controller by setting up the controller and its components.
@@ -242,16 +244,13 @@ public class Controller {
 
 
     /**
-     * Sets up a timer for bot movement.
+     * Sets up a timeLine for bot movement with a move every 250 milliSeconds.
+     * The timeLine repeats indefinitely, until a bot or human win, and it stops.
      */
     private void setupBotMovement() {
-        botTimer = new Timer(true);
-        botTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> moveBots());
-            }
-        }, 0, 250);
+        botTimeline = new Timeline(new KeyFrame(Duration.millis(250), event -> moveBots()));
+        botTimeline.setCycleCount(Timeline.INDEFINITE);
+        botTimeline.play();
     }
 
     /**
@@ -260,7 +259,7 @@ public class Controller {
     private void gameLost() {
         if (gameOver) return;
         gameOver = true;
-        if (botTimer != null) botTimer.cancel();
+        if (botTimeline != null) botTimeline.stop();
 
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -276,7 +275,7 @@ public class Controller {
      * When the User wins the game, this method stops bots timer and displays an alert with win message.
      */
     private void gameWon() {
-        if (botTimer != null) botTimer.cancel();
+        if (botTimeline != null) botTimeline.stop();
 
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
