@@ -197,26 +197,26 @@ public class Controller {
      * @param direction the direction in which the player car is moving.
      */
     private void movePlayer(Directions direction) {
-        Car botCar1 = cars.get(0);
-        Car botCar2 = cars.get(1);
-        Car player1 = cars.get(2);
+        for (Car car : cars){
+            if (car.getMovementStrategy() instanceof HumanMovementStrategy){
+                int newRow = car.getCurrentPosition().getRow();
+                int newCol = car.getCurrentPosition().getColumn();
 
-        int newRow = player1.getCurrentPosition().getRow();
-        int newCol = player1.getCurrentPosition().getColumn();
+                switch (direction) {
+                    case UP -> newRow--;
+                    case DOWN -> newRow++;
+                    case LEFT -> newCol--;
+                    case RIGHT -> newCol++;
+                }
 
-        switch (direction) {
-            case UP -> newRow--;
-            case DOWN -> newRow++;
-            case LEFT -> newCol--;
-            case RIGHT -> newCol++;
-        }
-
-        if (track.checkValidMove(new Position(newRow, newCol))) {
-            player1.updatePosition(new Position(newRow, newCol));
-            if (gamePlay.checkWinner(player1)) {
-                gameWon();
-            } else {
-                displayTrack();
+                if (track.checkValidMove(new Position(newRow, newCol))) {
+                    car.updatePosition(new Position(newRow, newCol));
+                    if (gamePlay.checkWinner(car)) {
+                        gameWon();
+                    } else {
+                        displayTrack();
+                    }
+                }
             }
         }
     }
@@ -226,29 +226,26 @@ public class Controller {
      * Checks for collisions or winning conditions after each move.
      */
     private void moveBots() {
-        Car botCar1 = cars.get(0);
-        Car botCar2 = cars.get(1);
-
-        if (gameOver){
-            return;
+        for (Car car : cars){
+            if (!(car.getMovementStrategy() instanceof HumanMovementStrategy)){
+                if (gameOver){
+                    return;
+                }
+                car.getMovementStrategy().move(car.getCurrentPosition());
+                if (gamePlay.checkWinner(car)) {
+                    gameLost();
+                }
+                displayTrack();
+            }
         }
-        botCar1.getMovementStrategy().move(botCar1.getCurrentPosition());
-        if (gamePlay.checkWinner(botCar1)) {
-            gameLost();
-        }
-        botCar2.getMovementStrategy().move(botCar2.getCurrentPosition());
-        if (gamePlay.checkWinner(botCar2)) {
-            gameLost();
-        }
-        // Refresh the grid to display bot movement
-        displayTrack();
     }
+
 
     /**
      * Sets up a timer for bot movement.
      */
     private void setupBotMovement() {
-        botTimer = new Timer(true); // Daemon timer to stop when the application closes
+        botTimer = new Timer(true);
         botTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
