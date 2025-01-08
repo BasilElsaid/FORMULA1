@@ -28,7 +28,6 @@ package it.unicam.cs.mpmgc.formula1.app;
 import it.unicam.cs.mpmgc.formula1.api.game.GamePlay;
 import it.unicam.cs.mpmgc.formula1.api.game.GameSetup;
 import it.unicam.cs.mpmgc.formula1.api.players.*;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
 import javafx.animation.KeyFrame;
@@ -63,11 +62,9 @@ public class Controller {
     private GridPane trackGrid;  // FXML GridPane for the track
     private static final int CELL_SIZE = 20;
 
-    private Track track;
     private GameSetup gameSetup;
     private GamePlay gamePlay;
 
-    private List<Car> cars = new ArrayList<>();
     private List<String> trackLines = new ArrayList<>();
 
     private boolean gameOver = false;
@@ -89,8 +86,6 @@ public class Controller {
         gamePlay = new GamePlay(gameSetup);
 
         trackLines = gameSetup.getTrackLines();
-        cars = gameSetup.getPlayers();
-        track = gameSetup.getTrack();
     }
 
     /**
@@ -146,7 +141,7 @@ public class Controller {
     private void placeRacers(){
         Color color;
         iMovementStrategy movementStrategy;
-        for (Car car : cars){
+        for (Car car : gameSetup.getPlayers()){
             movementStrategy = car.getMovementStrategy();
             if (movementStrategy instanceof HumanMovementStrategy){
                 color = Color.RED;
@@ -199,7 +194,7 @@ public class Controller {
      * @param direction the direction in which the player car is moving.
      */
     private void movePlayer(Directions direction) {
-        for (Car car : cars){
+        for (Car car : gameSetup.getPlayers()){
             if (car.getMovementStrategy() instanceof HumanMovementStrategy){
                 int newRow = car.getCurrentPosition().getRow();
                 int newCol = car.getCurrentPosition().getColumn();
@@ -211,7 +206,7 @@ public class Controller {
                     case RIGHT -> newCol++;
                 }
 
-                if (track.checkValidMove(new Position(newRow, newCol))) {
+                if (gameSetup.getTrack().checkValidMove(new Position(newRow, newCol))) {
                     car.updatePosition(new Position(newRow, newCol));
                     if (gamePlay.checkWinner(car)) {
                         gameWon();
@@ -228,7 +223,7 @@ public class Controller {
      * Checks for collisions or winning conditions after each move.
      */
     private void moveBots() {
-        for (Car car : cars){
+        for (Car car : gameSetup.getPlayers()){
             if (!(car.getMovementStrategy() instanceof HumanMovementStrategy)){
                 if (gameOver){
                     return;
