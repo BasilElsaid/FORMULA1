@@ -215,9 +215,6 @@ public class Controller {
             player1.updatePosition(new Position(newRow, newCol));
             if (gamePlay.checkWinner(player1)) {
                 gameWon();
-            } else if (botCar1.getCurrentPosition().equals(player1.getCurrentPosition())
-                    || botCar2.getCurrentPosition().equals(player1.getCurrentPosition())) {
-                gameLost();
             } else {
                 displayTrack();
             }
@@ -257,7 +254,7 @@ public class Controller {
             public void run() {
                 Platform.runLater(() -> moveBots());
             }
-        }, 0, 250); // Schedule with a delay of 0ms and period of 250ms
+        }, 0, 250);
     }
 
     /**
@@ -272,7 +269,7 @@ public class Controller {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Game Over");
             alert.setHeaderText("You Lost!");
-            alert.setContentText("A bot reached the finish line or caught you.");
+            alert.setContentText("A bot reached the finish line.");
             alert.showAndWait();
             stage.close();
         });
