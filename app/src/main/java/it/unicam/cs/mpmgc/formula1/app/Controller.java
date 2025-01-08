@@ -254,7 +254,7 @@ public class Controller {
     }
 
     /**
-     * When the User loses the game, this method stops bots timer and displays an alert with lose message.
+     * When the User loses the game, this method stops bots timeLine and displays an alert with lose message.
      */
     private void gameLost() {
         if (gameOver) return;
@@ -272,7 +272,7 @@ public class Controller {
     }
 
     /**
-     * When the User wins the game, this method stops bots timer and displays an alert with win message.
+     * When the User wins the game, this method stops bots timeLine and displays an alert with win message.
      */
     private void gameWon() {
         if (botTimeline != null) botTimeline.stop();
