@@ -32,18 +32,18 @@ import it.unicam.cs.mpmgc.formula1.api.utils.Position;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -58,6 +58,11 @@ public class Controller {
 
     @FXML
     private GridPane trackGrid;
+    @FXML
+    private Label finalResult;
+    @FXML
+    private Button exitButton;
+
     private static final int CELL_SIZE = 20;
 
     private GameSetup gameSetup;
@@ -89,7 +94,7 @@ public class Controller {
      */
     @FXML
     public void switchToGameScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene2.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 
@@ -97,6 +102,9 @@ public class Controller {
         keyHandler(scene);
 
         trackGrid = (GridPane) root.lookup("#trackGrid");
+        finalResult = (Label) root.lookup("#finalResult");
+        exitButton = (Button) root.lookup("#exitButton");
+
         displayTrack();
 
         stage.setScene(scene);
@@ -249,14 +257,10 @@ public class Controller {
         if (gameOver) return;
         gameOver = true;
 
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Game Over");
-            alert.setHeaderText("You Lost!");
-            alert.setContentText("A bot reached the finish line.");
-            alert.showAndWait();
-            stage.close();
-        });
+        finalResult.setText("Game Over! You Lost.");
+        finalResult.setTextFill(Color.RED);
+
+        exitButton.setVisible(true);
     }
 
     /**
@@ -265,12 +269,20 @@ public class Controller {
     private void gameWon() {
         if (botTimeline != null) botTimeline.stop();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText("Congratulations!");
-        alert.setContentText("You have reached the finish line and won the game!");
-        alert.showAndWait();
-        stage.close();
+        finalResult.setText("Congratulations! You Won.");
+        finalResult.setTextFill(Color.GREEN);
+
+        exitButton.setVisible(true);
+    }
+
+    @FXML
+    private void closeGame(){
+        if (stage != null){
+            stage.close();
+        }
+        else {
+            System.exit(0);
+        }
     }
 
 }
