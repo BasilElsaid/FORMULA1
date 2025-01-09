@@ -93,12 +93,12 @@ public class Controller {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 
+        setupBotMovement();
         keyHandler(scene);
 
         trackGrid = (GridPane) root.lookup("#trackGrid");
         displayTrack();
-
-        setupBotMovement();
+        
         stage.setScene(scene);
         stage.show();
     }
