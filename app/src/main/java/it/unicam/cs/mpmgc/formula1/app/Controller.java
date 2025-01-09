@@ -79,7 +79,7 @@ public class Controller {
     }
 
     /**
-     * Sets up the game by initializing GameSetup, GamePlay. track and players.
+     * Prepares the game by initializing GameSetup, GamePlay. track and players.
      */
     private void setup(){
         gameSetup = new GameSetup();
@@ -88,13 +88,13 @@ public class Controller {
     }
 
     /**
-     * Switches to the game scene, initializes the track, and sets up the game.
+     * Switches to the game scene, initializes the track, and sets ready the bots and user.
      * @param event the ActionEvent triggered by the user to start the game.
      * @throws IOException if there is an issue loading the FXML file.
      */
     @FXML
     public void switchToGameScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 
@@ -109,6 +109,19 @@ public class Controller {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * Exits the game when finished.
+     */
+    @FXML
+    private void exitGame(){
+        if (stage != null){
+            stage.close();
+        }
+        else {
+            System.exit(0);
+        }
     }
 
     /**
@@ -192,7 +205,7 @@ public class Controller {
 
     /**
      * Moves the player car in the specified direction,
-     * checks for collisions or winning conditions, and updates the track grid.
+     * Checks if the player won after each move, and updates the track grid.
      * @param direction the direction in which the player car is moving.
      */
     private void movePlayer(Directions direction) {
@@ -222,7 +235,7 @@ public class Controller {
 
     /**
      * Moves the bot cars based on their strategies.
-     * Checks for collisions or winning conditions after each move.
+     * Checks if a bot won after each move.
      */
     private void moveBots() {
         for (Car car : gameSetup.getPlayers()){
@@ -251,7 +264,8 @@ public class Controller {
     }
 
     /**
-     * When the User loses the game, this method stops bots timeLine and displays an alert with lose message.
+     * When the User loses the game, this method stops bots timeLine and displays a lose message.
+     * It also shows the exit button.
      */
     private void gameLost() {
         if (gameOver) return;
@@ -264,7 +278,8 @@ public class Controller {
     }
 
     /**
-     * When the User wins the game, this method stops bots timeLine and displays an alert with win message.
+     * When the User wins the game, this method stops bots timeLine and displays a win message.
+     * It also shows the exit button.
      */
     private void gameWon() {
         if (botTimeline != null) botTimeline.stop();
@@ -273,16 +288,6 @@ public class Controller {
         finalResult.setTextFill(Color.GREEN);
 
         exitButton.setVisible(true);
-    }
-
-    @FXML
-    private void closeGame(){
-        if (stage != null){
-            stage.close();
-        }
-        else {
-            System.exit(0);
-        }
     }
 
 }

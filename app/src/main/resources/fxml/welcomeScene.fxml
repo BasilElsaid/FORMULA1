@@ -14,7 +14,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="236.0" layoutY="324.0" mnemonicParsing="false" onAction="#switchToGameScene" text="Start Game!">
+      <Button fx:id="startGameButton" layoutX="236.0" layoutY="324.0" mnemonicParsing="false" onAction="#switchToGameScene" text="Run Game!">
          <font>
             <Font size="20.0" />
          </font>
