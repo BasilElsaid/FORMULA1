@@ -232,9 +232,9 @@ public class Controller {
                 if (gamePlay.checkWinner(car)) {
                     gameLost();
                 }
-                displayTrack();
             }
         }
+        displayTrack();
     }
 
 
@@ -254,7 +254,6 @@ public class Controller {
     private void gameLost() {
         if (gameOver) return;
         gameOver = true;
-        if (botTimeline != null) botTimeline.stop();
 
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -272,14 +271,12 @@ public class Controller {
     private void gameWon() {
         if (botTimeline != null) botTimeline.stop();
 
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Game Over");
-            alert.setHeaderText("Congratulations!");
-            alert.setContentText("You have reached the finish line and won the game!");
-            alert.showAndWait();
-            stage.close();
-        });
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("Congratulations!");
+        alert.setContentText("You have reached the finish line and won the game!");
+        alert.showAndWait();
+        stage.close();
     }
 
 }
