@@ -57,7 +57,7 @@ public class Controller {
     private Stage stage;
 
     @FXML
-    private GridPane trackGrid;  // FXML GridPane for the track
+    private GridPane trackGrid;
     private static final int CELL_SIZE = 20;
 
     private GameSetup gameSetup;
@@ -98,7 +98,7 @@ public class Controller {
 
         trackGrid = (GridPane) root.lookup("#trackGrid");
         displayTrack();
-        
+
         stage.setScene(scene);
         stage.show();
     }
@@ -107,7 +107,7 @@ public class Controller {
      * Displays the track grid on the screen by rendering the track matrix.
      */
     private void displayTrack(){
-        trackGrid.getChildren().clear();  // Clear previous track (if any)
+        trackGrid.getChildren().clear();
 
         for (int row = 0; row < gameSetup.getTrackLines().size(); row++){
             String line = gameSetup.getTrackLines().get(row);
