@@ -47,8 +47,6 @@ import javafx.scene.control.Alert;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller class for JavaFX.
@@ -64,8 +62,6 @@ public class Controller {
 
     private GameSetup gameSetup;
     private GamePlay gamePlay;
-
-    private List<String> trackLines = new ArrayList<>();
 
     private boolean gameOver = false;
     private Timeline botTimeline;
@@ -84,8 +80,6 @@ public class Controller {
         gameSetup = new GameSetup();
         gameSetup.setupGame();
         gamePlay = new GamePlay(gameSetup);
-
-        trackLines = gameSetup.getTrackLines();
     }
 
     /**
@@ -115,8 +109,8 @@ public class Controller {
     private void displayTrack(){
         trackGrid.getChildren().clear();  // Clear previous track (if any)
 
-        for (int row = 0; row < trackLines.size(); row++){
-            String line = trackLines.get(row);
+        for (int row = 0; row < gameSetup.getTrackLines().size(); row++){
+            String line = gameSetup.getTrackLines().get(row);
             for (int column = 0; column < line.length(); column++){
                 char cellType = line.charAt(column);
 
