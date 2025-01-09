@@ -52,8 +52,7 @@ import java.io.IOException;
  * Controller class for JavaFX.
  */
 public class Controller {
-
-
+    
     private Stage stage;
 
     @FXML
