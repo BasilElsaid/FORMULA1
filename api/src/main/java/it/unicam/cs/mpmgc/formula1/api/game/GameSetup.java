@@ -59,8 +59,8 @@ public class GameSetup{
     /**
      * Loads the track and players data, and initialize them, then it renders the game to be ready.
      */
-    public void setupGame(){
-        loadTrackAndPlayers("playersFormat.txt", "trackFormat.txt");
+    public void setupGame(String players, String track){
+        loadTrackAndPlayers(players, track);
         initializeTrack();
         initializePlayers();
         renderGame();

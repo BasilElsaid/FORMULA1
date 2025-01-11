@@ -84,7 +84,7 @@ public class Controller {
      */
     private void setup(){
         gameSetup = new GameSetup();
-        gameSetup.setupGame();
+        gameSetup.setupGame("playersFormat.txt", "trackFormat.txt");
         gamePlay = new GamePlay(gameSetup);
     }
 

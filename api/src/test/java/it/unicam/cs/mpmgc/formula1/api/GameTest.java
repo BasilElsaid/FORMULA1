@@ -44,7 +44,7 @@ class GameTest {
     @BeforeEach
     public void setUp(){
         setup = new GameSetup();
-        setup.setupGame();
+        setup.setupGame("playersFormat.txt", "trackFormat.txt");
     }
 
     @Test

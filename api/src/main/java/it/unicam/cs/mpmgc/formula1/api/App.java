@@ -35,7 +35,7 @@ public class App {
     public static void main(String[] args) {
 
         GameSetup setup = new GameSetup();
-        setup.setupGame();
+        setup.setupGame("playersFormat.txt", "trackFormat.txt");
 
         GamePlay game = new GamePlay(setup);
         game.startGame();
