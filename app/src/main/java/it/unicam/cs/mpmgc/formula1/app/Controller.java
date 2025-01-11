@@ -104,8 +104,7 @@ public class Controller {
         stepButton = (Button) root.lookup("#stepButton");
         runButton = (Button) root.lookup("#runButton");
 
-        boolean humanPresence = checkHumanPresence();
-        if (humanPresence){
+        if (checkHumanPresence()){
             setupBotMovement();
             keyHandler(scene);
             botTimeline.play();
@@ -131,6 +130,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Checks if there is a human user player or not.
+     * @return true if there is a human user, false otherwise.
+     */
     private boolean checkHumanPresence(){
         for (Car car : gameSetup.getPlayers()){
             if (car.getMovementStrategy() instanceof HumanMovementStrategy)
@@ -139,11 +142,17 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Shows Step run button, and Full run Button, only when the players are all bots.
+     */
     private void showStepAndRunButtons(){
         stepButton.setDisable(false);
         runButton.setDisable(false);
     }
 
+    /**
+     * A Step Button that runs the race for one round per click.
+     */
     @FXML
     private void stepRunGame(){
         if (!gameOver){
@@ -160,6 +169,9 @@ public class Controller {
         }
     }
 
+    /**
+     * A Run Button that runs the race until the end.
+     */
     @FXML
     private void fullRunGame(){
         if (botTimeline == null){
