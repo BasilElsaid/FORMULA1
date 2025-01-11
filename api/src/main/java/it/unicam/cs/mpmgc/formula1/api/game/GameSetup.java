@@ -60,7 +60,7 @@ public class GameSetup{
      * Loads the track and players data, and initialize them, then it renders the game to be ready.
      */
     public void setupGame(){
-        loadTrackAndPlayers();
+        loadTrackAndPlayers("playersFormat.txt", "trackFormat.txt");
         initializeTrack();
         initializePlayers();
         renderGame();
@@ -69,9 +69,9 @@ public class GameSetup{
     /**
      * Read and Parse track and player data from the given text files using FileIO methods.
      */
-    public void loadTrackAndPlayers(){
-        List<String> trackLines = fileIO.readFile("trackFormat.txt");
-        List<String> playerLines = fileIO.readFile("playersFormat.txt");
+    public void loadTrackAndPlayers(String players, String track){
+        List<String> trackLines = fileIO.readFile(track);
+        List<String> playerLines = fileIO.readFile(players);
 
         fileIO.parseTrack(trackLines);
         fileIO.parsePlayers(playerLines);
