@@ -52,7 +52,7 @@ import java.io.IOException;
  * Controller class for JavaFX.
  */
 public class Controller {
-    
+
     private Stage stage;
 
     @FXML
@@ -60,7 +60,9 @@ public class Controller {
     @FXML
     private Label finalResult;
     @FXML
-    private Button exitButton;
+    private Button stepButton;
+    @FXML
+    private Button runButton;
 
     private static final int CELL_SIZE = 20;
 
@@ -97,12 +99,18 @@ public class Controller {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 
-        setupBotMovement();
-        keyHandler(scene);
-
         trackGrid = (GridPane) root.lookup("#trackGrid");
         finalResult = (Label) root.lookup("#finalResult");
-        exitButton = (Button) root.lookup("#exitButton");
+        stepButton = (Button) root.lookup("#stepButton");
+        runButton = (Button) root.lookup("#runButton");
+
+        boolean humanPresence = checkHumanPresence();
+        if (humanPresence){
+            setupBotMovement();
+            keyHandler(scene);
+            botTimeline.play();
+        }
+        else showStepAndRunButtons();
 
         displayTrack();
 
@@ -121,6 +129,46 @@ public class Controller {
         else {
             System.exit(0);
         }
+    }
+
+    private boolean checkHumanPresence(){
+        for (Car car : gameSetup.getPlayers()){
+            if (car.getMovementStrategy() instanceof HumanMovementStrategy)
+                return true;
+        }
+        return false;
+    }
+
+    private void showStepAndRunButtons(){
+        stepButton.setDisable(false);
+        runButton.setDisable(false);
+    }
+
+    @FXML
+    private void stepRunGame(){
+        if (!gameOver){
+            if (botTimeline == null){
+                setupBotMovement();
+            }
+            botTimeline.stop();
+            botTimeline.setCycleCount(1);
+            botTimeline.play();
+        }
+        else {
+            stepButton.setDisable(true);
+            runButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void fullRunGame(){
+        if (botTimeline == null){
+            setupBotMovement();
+        }
+        botTimeline.setCycleCount(Timeline.INDEFINITE);
+        botTimeline.play();
+        runButton.setDisable(true);
+        stepButton.setDisable(true);
     }
 
     /**
@@ -259,7 +307,6 @@ public class Controller {
     private void setupBotMovement() {
         botTimeline = new Timeline(new KeyFrame(Duration.millis(250), event -> moveBots()));
         botTimeline.setCycleCount(Timeline.INDEFINITE);
-        botTimeline.play();
     }
 
     /**
@@ -272,8 +319,6 @@ public class Controller {
 
         finalResult.setText("Game Over! You Lost.");
         finalResult.setTextFill(Color.RED);
-
-        exitButton.setVisible(true);
     }
 
     /**
@@ -285,8 +330,6 @@ public class Controller {
 
         finalResult.setText("Congratulations! You Won.");
         finalResult.setTextFill(Color.GREEN);
-
-        exitButton.setVisible(true);
     }
 
 }
