@@ -68,9 +68,19 @@ public class Controller {
 
     private GameSetup gameSetup;
     private GamePlay gamePlay;
+    private String playersFile;
 
-    private boolean gameOver = false;
+    private boolean gameOver;
     private Timeline botTimeline;
+
+    /**
+     * Creates a new instance of Controller, sets the predefined player configuration to only Bots,
+     * and sets the gameOver to false, since the game still needs to start.
+     */
+    public Controller(){
+        this.playersFile = "botsOnly.txt";
+        this.gameOver = false;
+    }
 
     /**
      * Initializes the controller by setting up the controller and its components.
@@ -84,17 +94,18 @@ public class Controller {
      */
     private void setup(){
         gameSetup = new GameSetup();
-        gameSetup.setupGame("playersFormat.txt", "trackFormat.txt");
+        gameSetup.setupGame(playersFile, "trackFormat.txt");
         gamePlay = new GamePlay(gameSetup);
     }
 
     /**
      * Switches to the game scene, initializes the track, and sets ready the bots and user.
+     * This scene simulates EasyBot vs HardBot vs Human user player.
      * @param event the ActionEvent triggered by the user to start the game.
      * @throws IOException if there is an issue loading the FXML file.
      */
     @FXML
-    public void switchToGameScene(ActionEvent event) throws IOException {
+    public void switchToHumanAndBotsGameScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -104,13 +115,38 @@ public class Controller {
         stepButton = (Button) root.lookup("#stepButton");
         runButton = (Button) root.lookup("#runButton");
 
-        if (checkHumanPresence()){
-            setupBotMovement();
-            keyHandler(scene);
-            botTimeline.play();
-        }
-        else showStepAndRunButtons();
+        this.playersFile = "playersFormat.txt";
+        setup();
+        setupBotMovement();
+        keyHandler(scene);
+        botTimeline.play();
 
+        displayTrack();
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Switches to the game scene, initializes the track, and sets ready the bots.
+     * This scene simulates EasyBot vs HardBot with Run and Step Buttons enabled to be used in simulation.
+     * @param event the ActionEvent triggered by the user to start the game.
+     * @throws IOException if there is an issue loading the FXML file.
+     */
+    @FXML
+    public void switchToOnlyBotsGameScene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameScene.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+
+        trackGrid = (GridPane) root.lookup("#trackGrid");
+        finalResult = (Label) root.lookup("#finalResult");
+        stepButton = (Button) root.lookup("#stepButton");
+        runButton = (Button) root.lookup("#runButton");
+
+        this.playersFile = "botsOnly.txt";
+        setup();
+        showStepAndRunButtons();
         displayTrack();
 
         stage.setScene(scene);
@@ -128,18 +164,6 @@ public class Controller {
         else {
             System.exit(0);
         }
-    }
-
-    /**
-     * Checks if there is a human user player or not.
-     * @return true if there is a human user, false otherwise.
-     */
-    private boolean checkHumanPresence(){
-        for (Car car : gameSetup.getPlayers()){
-            if (car.getMovementStrategy() instanceof HumanMovementStrategy)
-                return true;
-        }
-        return false;
     }
 
     /**

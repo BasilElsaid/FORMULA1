@@ -14,15 +14,20 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="236.0" layoutY="324.0" mnemonicParsing="false" onAction="#switchToGameScene" text="Run Game!">
+      <Button layoutX="331.0" layoutY="325.0" mnemonicParsing="false" onAction="#switchToHumanAndBotsGameScene" text="Play VS Bots!">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Button>
-      <ImageView fx:id="welcomeImageView" fitHeight="208.0" fitWidth="302.0" layoutX="149.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="208.0" fitWidth="302.0" layoutX="149.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/welcomeImage.jpg" />
          </image>
       </ImageView>
+      <Button layoutX="149.0" layoutY="325.0" mnemonicParsing="false" onAction="#switchToOnlyBotsGameScene" prefHeight="39.0" prefWidth="120.0" text="Simulate Bots">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

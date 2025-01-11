@@ -1,0 +1,3 @@
+2
+EasyBot,bot1
+HardBot,bot2

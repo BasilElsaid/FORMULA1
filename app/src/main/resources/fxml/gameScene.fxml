@@ -14,7 +14,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="exitButton" layoutX="529.0" layoutY="349.0" mnemonicParsing="false" onAction="#exitGame" text="EXIT" />
+      <Button layoutX="529.0" layoutY="349.0" mnemonicParsing="false" onAction="#exitGame" text="EXIT" />
       <Button fx:id="stepButton" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" onAction="#stepRunGame" text="STEP" disable="true" />
       <Button fx:id="runButton" layoutX="524.0" layoutY="20.0" mnemonicParsing="false" onAction="#fullRunGame" text="RUN" disable="true" />
    </children>
