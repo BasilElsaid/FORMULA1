@@ -127,15 +127,18 @@ public class GameSetup{
         Car player ;
         String playerType = playerData[0];
         String playerName = playerData[1];
-        switch (playerType) {
-            case "HardBot"  : player = new Car(playerName, new HardBotStrategy(track));     break;
-            case "EasyBot"  : player = new Car(playerName, new EasyBotStrategy(track));     break;
-            case "Human": player = new Car(playerName, new HumanMovementStrategy(track));   break;
-            default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
+        Position newPlayerPosition = new Position(initialPlayerRow, INITIAL_PLAYER_COLUMN);
+        if (track.checkValidMove(newPlayerPosition)){
+            switch (playerType) {
+                case "HardBot"  : player = new Car(playerName, new HardBotStrategy(track));     break;
+                case "EasyBot"  : player = new Car(playerName, new EasyBotStrategy(track));     break;
+                case "Human": player = new Car(playerName, new HumanMovementStrategy(track));   break;
+                default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
+            }
+            player.updatePosition(newPlayerPosition);
+            players.add(player);
+            initialPlayerRow++;
         }
-        player.updatePosition(new Position(initialPlayerRow, INITIAL_PLAYER_COLUMN));
-        players.add(player);
-        initialPlayerRow++;
     }
 
     /**
