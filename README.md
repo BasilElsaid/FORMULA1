@@ -1,30 +1,30 @@
-# FORMULA1 Racing Game Simulation
+# FORMULA1 - Simulazione di Gara Automobilistica
 
-**Project for:** Metodologie di Programmazione Unicam
-
----
-
-## Overview
-
-FORMULA1 is a digital adaptation of a pencil-and-paper Formula 1 racing game played on a grid track. It simulates race dynamics including vehicle inertia and braking strategies.
-
-The project includes:
-
-- Race track representation
-- Bot players with different strategies
-- Game engine to manage the race
-- Console and GUI modes
-- Support for interactive human players (advanced level)
+**Progetto per:** Progetto del corso di Metodologie di Programmazione
 
 ---
 
-## Features
+## Descrizione
 
-- Load track and players from config files
-- Two bot strategies implemented
-- Console output displaying race progress
-- Simple JavaFX GUI with step-by-step and full-run controls
-- Clean, SOLID-compliant, well-tested codebase
-- Gradle build and run scripts
+FORMULA1 è una versione digitale di un gioco di carta e matita su circuito quadrettato, che simula una gara considerando l’inerzia dei veicoli e la necessità di frenare nelle curve.
+
+Il progetto implementa:
+
+- Rappresentazione del tracciato
+- Giocatori bot con strategie diverse
+- Motore di gioco per la gestione della gara
+- Modalità console e interfaccia grafica (GUI)
+- Supporto per giocatori umani interattivi (livello avanzato)
+
+---
+
+## Caratteristiche
+
+- Caricamento da file di tracciato e giocatori
+- Due strategie di bot implementate
+- Visualizzazione console dell’avanzamento gara
+- Interfaccia grafica JavaFX con esecuzione passo-passo e completa
+- Codice pulito, conforme a principi SOLID, con test automatici
+- Progetto Gradle completo per build e esecuzione
 
 ---
