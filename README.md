@@ -1,6 +1,6 @@
 # FORMULA1 - Simulazione di Gara Automobilistica
 
-**Progetto per:** Progetto del corso di Metodologie di Programmazione
+**Progetto per:** corso di Metodologie di Programmazione
 
 ---
 
