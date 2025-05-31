@@ -14,7 +14,7 @@ Il progetto implementa:
 - Giocatori bot con strategie diverse
 - Motore di gioco per la gestione della gara
 - Modalità console e interfaccia grafica (GUI)
-- Supporto per giocatori umani interattivi (livello avanzato)
+- Supporto per giocatori umani interattivi
 
 ---
 
